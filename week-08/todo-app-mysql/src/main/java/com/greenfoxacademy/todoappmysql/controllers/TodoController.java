@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
+
 @Controller
 @RequestMapping("/todo")
 public class TodoController {
@@ -38,8 +40,14 @@ public class TodoController {
     }
 
     @PostMapping("/add")
-    public String addBankAccount(@ModelAttribute Todo newTodo) {
+    public String addTodo(@ModelAttribute Todo newTodo) {
         todoRepository.save(newTodo);
         return "redirect:list";
+    }
+
+    @PostMapping("{id}/delete")
+    public String deleteTodo(@PathVariable(value = "id") Long id) {
+        todoRepository.deleteById(id);
+        return "redirect:/todo/";
     }
 }

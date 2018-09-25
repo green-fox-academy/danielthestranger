@@ -30,12 +30,14 @@
                         <td><input type="submit" th:value="Add" class="btn btn-sm btn-primary"/></td>
                     </form>
                 </tr>
-                <tr th:each="todo : ${todos}" th:object="${todo}">
-                    <td th:text="*{id}"></td>
-                    <td th:text="*{title}"></td>
-                    <td><input type="checkbox" class="form-check-input" th:checked="*{done}" disabled /></td>
-                    <td><input type="checkbox" class="form-check-input" th:checked="*{urgent}" disabled /></td>
-                    <td></td>
+                <tr th:each="todo : ${todos}">
+                    <form th:object="${todo}" action="#" th:action="@{{id}/delete(id=*{id})}" method="post">
+                        <td th:text="*{id}"></td>
+                        <td th:text="*{title}"></td>
+                        <td><input type="checkbox" class="form-check-input" th:checked="*{done}" disabled /></td>
+                        <td><input type="checkbox" class="form-check-input" th:checked="*{urgent}" disabled /></td>
+                        <td><input type="submit" th:value="Delete" class="btn btn-sm btn-danger"/></td>
+                    </form>
                 </tr>
                 </tbody>
             </table>
