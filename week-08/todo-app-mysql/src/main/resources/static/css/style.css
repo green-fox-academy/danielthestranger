@@ -1,0 +1,7 @@
+td .right-justified, tr .right-justified {
+    text-align: right;
+}
+
+.king {
+    color: red;
+}
