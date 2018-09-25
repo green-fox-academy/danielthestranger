@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/todo")
@@ -48,6 +49,23 @@ public class TodoController {
     @PostMapping("{id}/delete")
     public String deleteTodo(@PathVariable(value = "id") Long id) {
         todoRepository.deleteById(id);
+        return "redirect:/todo/";
+    }
+
+    @GetMapping("{id}/edit")
+    public String showEditTodo(@PathVariable(value = "id") Long id,
+                           Model model) {
+        Optional<Todo> optionalTodo = todoRepository.findById(id);
+        if (optionalTodo.equals(Optional.empty()))
+            return "redirect:/todo/";
+
+        model.addAttribute("todo", optionalTodo.get());
+        return "todoedit";
+    }
+
+    @PostMapping("{id}/edit")
+    public String editTodo(@ModelAttribute Todo todo) {
+        todoRepository.save(todo);
         return "redirect:/todo/";
     }
 }

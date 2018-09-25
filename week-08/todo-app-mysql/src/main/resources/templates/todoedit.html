@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="th-fragments :: head" />
+</head>
+<body>
+<div class="container" role="main">
+    <div class="page-header">
+        <h1>Edit Todo</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Done</th>
+                    <th>Urgent</th>
+                    <th>Command</th>
+                    <th>Cancel</th>
+                </tr>
+                <tbody>
+                </tbody>
+                <tr>
+                    <form th:object="${todo}" method="post">
+                        <td><input type="text" class="form-control form-control-sm" th:field="*{title}"/></td>
+                        <td><input type="checkbox" class="form-check-input" th:field="*{done}"/></td>
+                        <td><input type="checkbox" class="form-check-input" th:field="*{urgent}"/></td>
+                        <td><input type="submit" th:value="Update" class="btn btn-sm btn-primary"/></td>
+                        <td><a th:text="Cancel" th:href="@{/todo/}"></a></td>
+                    </form>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
