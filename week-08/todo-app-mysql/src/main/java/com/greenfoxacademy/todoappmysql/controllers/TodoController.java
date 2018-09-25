@@ -5,10 +5,7 @@ import com.greenfoxacademy.todoappmysql.repositories.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/todo")
@@ -19,11 +16,12 @@ public class TodoController {
     @Autowired
     public TodoController(TodoRepository todoRepository) {
         this.todoRepository = todoRepository;
+
+        // Dummy todos for testing
         todoRepository.save(new Todo("Not urgent done task", false, true));
         todoRepository.save(new Todo("Urgent done task", true, true));
         todoRepository.save(new Todo("Outstanding task", false, false));
         todoRepository.save(new Todo("Outstanding urgent task", true, false));
-
     }
 
     @GetMapping(value = {"/", "/list"})
@@ -34,6 +32,14 @@ public class TodoController {
         else
             model.addAttribute("todos", todoRepository.findAllByDone(!isActive));
 
+        model.addAttribute("newTodo", new Todo());
+
         return "todoslist";
+    }
+
+    @PostMapping("/add")
+    public String addBankAccount(@ModelAttribute Todo newTodo) {
+        todoRepository.save(newTodo);
+        return "redirect:list";
     }
 }

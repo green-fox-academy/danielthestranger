@@ -17,39 +17,26 @@
                     <th>Title</th>
                     <th>Done</th>
                     <th>Urgent</th>
+                    <th>Command</th>
                 </tr>
                 <tbody>
                 </tbody>
+                <tr>
+                    <form th:object="${newTodo}" action="#" th:action="@{'add'}" method="post">
+                        <td></td>
+                        <td><input type="text" class="form-control form-control-sm" th:field="*{title}"/></td>
+                        <td><input type="checkbox" class="form-check-input" th:field="*{done}"/></td>
+                        <td><input type="checkbox" class="form-check-input" th:field="*{urgent}"/></td>
+                        <td><input type="submit" th:value="Add" class="btn btn-sm btn-primary"/></td>
+                    </form>
+                </tr>
                 <tr th:each="todo : ${todos}" th:object="${todo}">
                     <td th:text="*{id}"></td>
                     <td th:text="*{title}"></td>
                     <td><input type="checkbox" class="form-check-input" th:checked="*{done}" disabled /></td>
                     <td><input type="checkbox" class="form-check-input" th:checked="*{urgent}" disabled /></td>
+                    <td></td>
                 </tr>
-                <!--<tr>-->
-                    <!--<form th:object="${newBankAccount}" action="#" th:action="@{'/add-bank-account/'}" method="post">-->
-                        <!--<td></td>-->
-                        <!--<td><input type="text" class="form-control form-control-sm" th:field="*{name}"/></td>-->
-                        <!--<td><input type="text" class="form-control form-control-sm" th:field="*{balance}"/></td>-->
-                        <!--<td><input type="text" class="form-control form-control-sm" th:field="*{currency}"/></td>-->
-                        <!--<td><input type="text" class="form-control form-control-sm" th:field="*{animalType}"/></td>-->
-                        <!--<td>-->
-                            <!--<select class="form-control form-control-sm" th:field="*{ownerInclination}">-->
-                                <!--<option th:each="option : ${T(com.greenfoxacademy.bankofsimba.models.OwnerInclination).values()}"-->
-                                        <!--th:value="${{option}}" th:text="${option}"></option>-->
-                            <!--</select>-->
-                        <!--</td>-->
-                        <!--<td><input type="checkbox" class="form-check-input" th:field="*{king}"/></td>-->
-                        <!--<td>-->
-                            <!--<select class="form-control form-control-sm" th:field="*{willBeKing}">-->
-                                <!--<option th:value="${null}" th:text="Unknown"></option>-->
-                                <!--<option th:value="${true}" th:text="Yes"></option>-->
-                                <!--<option th:value="${false}" th:text="No"></option>-->
-                            <!--</select>-->
-                        <!--</td>-->
-                        <!--<td><input type="submit" th:value="Add" class="btn btn-sm btn-primary"/></td>-->
-                    <!--</form>-->
-                <!--</tr>-->
                 </tbody>
             </table>
         </div>
