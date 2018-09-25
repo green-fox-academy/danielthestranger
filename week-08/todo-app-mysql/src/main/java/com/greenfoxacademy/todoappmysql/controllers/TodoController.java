@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -26,8 +27,13 @@ public class TodoController {
     }
 
     @GetMapping(value = {"/", "/list"})
-    public String list(Model model) {
-        model.addAttribute("todos", todoRepository.findAll());
+    public String list(@RequestParam(value = "isActive", required = false) Boolean isActive,
+            Model model) {
+        if (isActive == null)
+            model.addAttribute("todos", todoRepository.findAll());
+        else
+            model.addAttribute("todos", todoRepository.findAllByDone(!isActive));
+
         return "todoslist";
     }
 }
