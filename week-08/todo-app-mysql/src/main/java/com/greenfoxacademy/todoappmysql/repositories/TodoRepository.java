@@ -1,6 +1,6 @@
-package com.greenfoxacademy.listingtodoswithh2.repositories;
+package com.greenfoxacademy.todoappmysql.repositories;
 
-import com.greenfoxacademy.listingtodoswithh2.models.Todo;
+import com.greenfoxacademy.todoappmysql.models.Todo;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

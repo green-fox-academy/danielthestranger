@@ -1,4 +1,4 @@
-package com.greenfoxacademy.listingtodoswithh2.models;
+package com.greenfoxacademy.todoappmysql.models;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;

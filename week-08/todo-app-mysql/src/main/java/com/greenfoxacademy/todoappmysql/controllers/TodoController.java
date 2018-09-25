@@ -1,6 +1,6 @@
-package com.greenfoxacademy.listingtodoswithh2.controllers;
+package com.greenfoxacademy.todoappmysql.controllers;
 
-import com.greenfoxacademy.listingtodoswithh2.repositories.TodoRepository;
+import com.greenfoxacademy.todoappmysql.repositories.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
