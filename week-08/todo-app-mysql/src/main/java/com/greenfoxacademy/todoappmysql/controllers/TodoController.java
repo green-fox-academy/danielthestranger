@@ -1,5 +1,6 @@
 package com.greenfoxacademy.todoappmysql.controllers;
 
+import com.greenfoxacademy.todoappmysql.models.Todo;
 import com.greenfoxacademy.todoappmysql.repositories.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,11 @@ public class TodoController {
     @Autowired
     public TodoController(TodoRepository todoRepository) {
         this.todoRepository = todoRepository;
+        todoRepository.save(new Todo("Not urgent done task", false, true));
+        todoRepository.save(new Todo("Urgent done task", true, true));
+        todoRepository.save(new Todo("Outstanding task", false, false));
+        todoRepository.save(new Todo("Outstanding urgent task", true, false));
+
     }
 
     @GetMapping(value = {"/", "/list"})
