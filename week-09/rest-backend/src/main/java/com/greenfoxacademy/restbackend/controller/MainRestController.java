@@ -28,9 +28,9 @@ public class MainRestController {
     public ResponseEntity<?> doubling(@RequestParam(value = "input", required = false) Double received) {
         if (received == null) {
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Error("Please provide an input!"));
-        } else {
-            return ResponseEntity.status(HttpStatus.OK).body(new ReceivedAndResult(received, received*2));
         }
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ReceivedAndResult(received, received*2));
     }
 
     @GetMapping("/greeter")
@@ -40,9 +40,9 @@ public class MainRestController {
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Error("Please provide a name!"));
         } else if (title == null || title.isEmpty()) {
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Error("Please provide a title!"));
-        } else {
-            return ResponseEntity.status(HttpStatus.OK).body(new Greeting(name, title));
         }
+
+        return ResponseEntity.status(HttpStatus.OK).body(new Greeting(name, title));
     }
 
     @GetMapping("/appenda/{appendable}")
@@ -55,12 +55,12 @@ public class MainRestController {
                                      @RequestBody(required = false) Until until) {
         if (until == null || until.getUntil() == null) {
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Error("Please provide a number!"));
-        } else {
-            try {
-                return ResponseEntity.status(HttpStatus.OK).body(doUntilService.doActionUntil(action, until.getUntil()));
-            } catch (Exception ex) {
-                return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Error("Unsupported action"));
-            }
+        }
+
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(doUntilService.doActionUntil(action, until.getUntil()));
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Error("Unsupported action"));
         }
     }
 
@@ -72,14 +72,14 @@ public class MainRestController {
                 || arrayWithAction.getNumbers() == null
                 || arrayWithAction.getNumbers().size() == 0) {
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Error("Please provide what to do with the numbers!"));
-        } else {
-            try {
-                String what = arrayWithAction.getWhat();
-                List<Integer> numbers = arrayWithAction.getNumbers();
-                return ResponseEntity.status(HttpStatus.OK).body(arrayActionService.doArrayAction(what, numbers));
-            } catch (Exception ex) {
-                return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Error("Unsupported action"));
-            }
+        }
+
+        try {
+            String what = arrayWithAction.getWhat();
+            List<Integer> numbers = arrayWithAction.getNumbers();
+            return ResponseEntity.status(HttpStatus.OK).body(arrayActionService.doArrayAction(what, numbers));
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Error("Unsupported action"));
         }
     }
 }
