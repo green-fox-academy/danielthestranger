@@ -78,8 +78,8 @@ public class MainRestController {
             String what = arrayWithAction.getWhat();
             List<Integer> numbers = arrayWithAction.getNumbers();
             return ResponseEntity.status(HttpStatus.OK).body(arrayActionService.doArrayAction(what, numbers));
-        } catch (Exception ex) {
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Error("Unsupported action"));
+        } catch (IllegalArgumentException ex) {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Error(ex.getMessage()));
         }
     }
 }
