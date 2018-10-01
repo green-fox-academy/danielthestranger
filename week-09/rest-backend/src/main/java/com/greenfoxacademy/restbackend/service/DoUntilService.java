@@ -1,4 +1,4 @@
-package com.greenfoxacademy.restbackend;
+package com.greenfoxacademy.restbackend.service;
 
 import com.greenfoxacademy.restbackend.model.dto.Result;
 import com.greenfoxacademy.restbackend.util.DoUntilActions;

@@ -1,6 +1,6 @@
 package com.greenfoxacademy.restbackend.controller;
 
-import com.greenfoxacademy.restbackend.DoUntilService;
+import com.greenfoxacademy.restbackend.service.DoUntilService;
 import com.greenfoxacademy.restbackend.model.dto.*;
 import com.greenfoxacademy.restbackend.model.dto.Error;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +53,23 @@ public class MainRestController {
         } else {
             try {
                 return ResponseEntity.status(HttpStatus.OK).body(doUntilService.doActionUntil(action, until.getUntil()));
+            } catch (Exception ex) {
+                return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Error("Unsupported action"));
+            }
+        }
+    }
+
+    @PostMapping("/arrays")
+    public ResponseEntity<?> handleArray(@RequestBody(required = false) ArrayWithAction arrayWithAction) {
+        if (arrayWithAction == null
+                || arrayWithAction.getWhat() == null
+                || arrayWithAction.getWhat().isEmpty()
+                || arrayWithAction.getNumbers() == null
+                || arrayWithAction.getNumbers().size() == 0) {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Error("Please provide what to do with the numbers!"));
+        } else {
+            try {
+                return ResponseEntity.status(HttpStatus.OK).body("");
             } catch (Exception ex) {
                 return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Error("Unsupported action"));
             }
