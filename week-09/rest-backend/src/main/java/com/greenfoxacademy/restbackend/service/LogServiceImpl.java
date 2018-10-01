@@ -2,6 +2,7 @@ package com.greenfoxacademy.restbackend.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.greenfoxacademy.restbackend.model.Log;
+import com.greenfoxacademy.restbackend.model.dto.LogsWithCount;
 import com.greenfoxacademy.restbackend.repository.LogRepository;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,10 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public Iterable<Log> findAll() {
-        return logRepository.findAll();
+    public LogsWithCount findAllWithCount() {
+        LogsWithCount logsWithCount = new LogsWithCount();
+        logsWithCount.setEntries(logRepository.findAll());
+        return logsWithCount;
     }
 
     @Override

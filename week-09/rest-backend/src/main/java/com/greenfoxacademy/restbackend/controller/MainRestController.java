@@ -101,4 +101,12 @@ public class MainRestController {
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Error(ex.getMessage()));
         }
     }
+
+    @GetMapping("/log")
+    public ResponseEntity<?> getLogsWithCount(HttpServletRequest request) {
+        logService.log(request);
+
+        return ResponseEntity.status(HttpStatus.OK).body(logService.findAllWithCount());
+    }
+
 }
