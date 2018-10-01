@@ -1,15 +1,23 @@
 package com.greenfoxacademy.restbackend.controller;
 
+import com.greenfoxacademy.restbackend.DoUntilService;
 import com.greenfoxacademy.restbackend.model.dto.*;
 import com.greenfoxacademy.restbackend.model.dto.Error;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 
 @RestController
 public class MainRestController {
+
+    private DoUntilService doUntilService;
+
+    @Autowired
+    public MainRestController(DoUntilService doUntilService) {
+        this.doUntilService = doUntilService;
+    }
 
     @GetMapping("/doubling")
     public ResponseEntity<?> doubling(@RequestParam(value = "input", required = false) Double received) {
@@ -43,7 +51,11 @@ public class MainRestController {
         if (until == null || until.getUntil() == null) {
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Error("Please provide a number!"));
         } else {
-            return ResponseEntity.status(HttpStatus.OK).body(new Result());
+            try {
+                return ResponseEntity.status(HttpStatus.OK).body(doUntilService.doActionUntil(action, until.getUntil()));
+            } catch (Exception ex) {
+                return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Error("Unsupported action"));
+            }
         }
     }
 }

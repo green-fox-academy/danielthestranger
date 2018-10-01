@@ -1,21 +1,21 @@
 package com.greenfoxacademy.restbackend.model.dto;
 
 public class Result {
-    private Double result;
+    private Integer result;
 
     public Result() {
     }
 
-    public Result(Double result) {
+    public Result(Integer result) {
         this();
         this.result = result;
     }
 
-    public Double getResult() {
+    public Integer getResult() {
         return result;
     }
 
-    public void setResult(Double result) {
+    public void setResult(Integer result) {
         this.result = result;
     }
 }
