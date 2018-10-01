@@ -1,5 +1,6 @@
 package com.greenfoxacademy.restbackend.controller;
 
+import com.greenfoxacademy.restbackend.model.dto.Greeting;
 import com.greenfoxacademy.restbackend.model.dto.ReceivedAndResult;
 import com.greenfoxacademy.restbackend.model.dto.Error;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,18 @@ public class MainRestController {
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Error("Please provide an input!"));
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(new ReceivedAndResult(received, received*2));
+        }
+    }
+
+    @GetMapping("/greeter")
+    public ResponseEntity<?> doubling(@RequestParam(value = "name", required = false) String name,
+                                      @RequestParam(value = "title", required = false) String title) {
+        if (name == null || name.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Error("Please provide a name!"));
+        } else if (title == null || title.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Error("Please provide a title!"));
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(new Greeting(name, title));
         }
     }
 }
