@@ -1,15 +1,10 @@
 package com.greenfoxacademy.restbackend.controller;
 
-import com.greenfoxacademy.restbackend.model.dto.Appended;
-import com.greenfoxacademy.restbackend.model.dto.Greeting;
-import com.greenfoxacademy.restbackend.model.dto.ReceivedAndResult;
+import com.greenfoxacademy.restbackend.model.dto.*;
 import com.greenfoxacademy.restbackend.model.dto.Error;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
 
@@ -40,5 +35,15 @@ public class MainRestController {
     @GetMapping("/appenda/{appendable}")
     public ResponseEntity<?> appenda(@PathVariable("appendable") String appendable) {
         return ResponseEntity.status(HttpStatus.OK).body(new Appended(appendable));
+    }
+
+    @PostMapping("/dountil/{action}")
+    public ResponseEntity<?> doUntil(@PathVariable("action") String action,
+                                     @RequestBody(required = false) Until until) {
+        if (until == null || until.getUntil() == null) {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Error("Please provide a number!"));
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(new Result());
+        }
     }
 }
