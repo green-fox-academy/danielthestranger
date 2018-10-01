@@ -55,10 +55,12 @@ public class LogServiceImpl implements LogService {
             return log(endpoint, request.getQueryString());
         } else if ("post".equalsIgnoreCase(request.getMethod())) {
             String requestBody = null;
-            try {
-                requestBody = jsonMapper.writeValueAsString(postObject);
-            } catch (Exception e) {
-                requestBody = "Cannot get request body";
+            if (postObject != null) {
+                try {
+                    requestBody = jsonMapper.writeValueAsString(postObject);
+                } catch (Exception e) {
+                    requestBody = "Cannot get request body";
+                }
             }
             return log(endpoint, requestBody);
         }
