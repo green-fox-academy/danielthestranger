@@ -1,14 +1,13 @@
 package com.greenfoxacademy.restbackend.util;
 
 public class DoUntilActions {
-    public int sum(int first, int second) {
-        return first + second;
+    public int sum(int collector, int second) {
+        return collector + second;
     }
-    public int factor(int first, int second) {
-        if (first == 0 || second == 0)
+    public int factor(int collector, int second) {
+        if (collector == 0)
             return 1;
-
-        return first * second;
+        return collector * second;
     }
 
 }

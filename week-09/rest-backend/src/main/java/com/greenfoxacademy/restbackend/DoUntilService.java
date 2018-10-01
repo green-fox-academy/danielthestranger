@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
 @Service
 public class DoUntilService {
     public Result doActionUntil(String action, Integer until) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Result result = new Result();
+        Result<Integer> result = new Result<>();
 
         DoUntilActions actions = new DoUntilActions();
         Method method = actions.getClass().getMethod(action, int.class, int.class);
