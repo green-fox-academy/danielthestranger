@@ -1,5 +1,6 @@
 package com.greenfoxacademy.restbackend.controller;
 
+import com.greenfoxacademy.restbackend.service.ArrayActionService;
 import com.greenfoxacademy.restbackend.service.DoUntilService;
 import com.greenfoxacademy.restbackend.model.dto.*;
 import com.greenfoxacademy.restbackend.model.dto.Error;
@@ -8,15 +9,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 public class MainRestController {
 
     private DoUntilService doUntilService;
+    private ArrayActionService arrayActionService;
 
     @Autowired
-    public MainRestController(DoUntilService doUntilService) {
+    public MainRestController(DoUntilService doUntilService, ArrayActionService arrayActionService) {
         this.doUntilService = doUntilService;
+        this.arrayActionService = arrayActionService;
     }
 
     @GetMapping("/doubling")
@@ -69,7 +74,9 @@ public class MainRestController {
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Error("Please provide what to do with the numbers!"));
         } else {
             try {
-                return ResponseEntity.status(HttpStatus.OK).body("");
+                String what = arrayWithAction.getWhat();
+                List<Integer> numbers = arrayWithAction.getNumbers();
+                return ResponseEntity.status(HttpStatus.OK).body(arrayActionService.doArrayAction(what, numbers));
             } catch (Exception ex) {
                 return ResponseEntity.status(HttpStatus.ACCEPTED).body(new Error("Unsupported action"));
             }
