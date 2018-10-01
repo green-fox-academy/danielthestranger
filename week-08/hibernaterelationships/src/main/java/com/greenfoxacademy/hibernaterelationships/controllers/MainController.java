@@ -10,7 +10,7 @@ public class MainController {
 
     @GetMapping("/")
     public String showIndex(Model model) {
-        model.addAttribute("car", new Car("UAZ"));
+        model.addAttribute("car", new Car("Dacia"));
         return "index";
     }
 }
