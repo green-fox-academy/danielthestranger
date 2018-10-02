@@ -3,12 +3,10 @@ package com.greenfoxacademy.todoappmysql.controllers;
 import com.greenfoxacademy.todoappmysql.models.Todo;
 import com.greenfoxacademy.todoappmysql.repositories.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.Optional;
 
 @Controller
