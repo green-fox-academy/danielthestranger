@@ -27,7 +27,9 @@ public class MainRestControllerTest {
             MediaType.APPLICATION_JSON.getSubtype(),
             Charset.forName("utf8"));
     private String jsonErrorPath ="$.error";
+
     private String doublingEndPoint ="/doubling";
+    private String greeterEndPoint ="/greeter";
 
     @Autowired
     private MockMvc mockMvc;
@@ -42,7 +44,11 @@ public class MainRestControllerTest {
     @Test
     public void doublingReturnsError_on_noParam() throws Exception {
         String endpoint = doublingEndPoint;
-        String[] urlTemplates = {endpoint, endpoint+"?", endpoint+"?input="};
+        String[] urlTemplates = {
+                            endpoint,
+                            endpoint+"?",
+                            endpoint+"?input=",
+        };
 
         String errorMsg = "Please provide an input!";
 
@@ -58,9 +64,18 @@ public class MainRestControllerTest {
     @Test
     public void doublingReturnsJson_on_validInput() throws Exception {
         String endpoint = doublingEndPoint;
-        String[] urlTemplates = {endpoint+"?input=15", endpoint+"?input=0"};
-        Double[] receiveds = {15., 0.};
-        Double[] results = {30., 0.};
+        String[] urlTemplates = {
+                            endpoint+"?input=15",
+                            endpoint+"?input=0",
+        };
+        Double[] receiveds = {
+                            15.,
+                            0.,
+        };
+        Double[] results = {
+                            30.,
+                            0.,
+        };
 
         for (int i = 0; i < urlTemplates.length; i++) {
             mockMvc.perform(get(urlTemplates[i]))
@@ -68,6 +83,59 @@ public class MainRestControllerTest {
                     .andExpect(content().contentType(contentType))
                     .andExpect(jsonPath("$.received", is(receiveds[i])))
                     .andExpect(jsonPath("$.result", is(results[i])))
+                    .andDo(print());
+        }
+    }
+
+
+    @Test
+    public void greeterReturnsError_on_noParam() throws Exception {
+        String endpoint = greeterEndPoint;
+        String nameErrorMsg = "Please provide a name!";
+        String titleErrorMsg = "Please provide a title!";
+
+        String[] urlTemplates = {
+                            endpoint,
+                            endpoint+"?",
+                            endpoint+"?name=",
+                            endpoint+"?name=Petike",
+                            endpoint+"?name=Petike&title=",
+        };
+        String[] errorMsgs = {
+                            nameErrorMsg,
+                            nameErrorMsg,
+                            nameErrorMsg,
+                            titleErrorMsg,
+                            titleErrorMsg,
+        };
+
+        for (int i = 0; i < urlTemplates.length; i++) {
+            mockMvc.perform(get(urlTemplates[i]))
+                    .andExpect(status().isAccepted())
+                    .andExpect(content().contentType(contentType))
+                    .andExpect(jsonPath(jsonErrorPath, is(errorMsgs[i])))
+                    .andDo(print());
+        }
+    }
+
+
+    @Test
+    public void greeterReturnsJson_on_validInput() throws Exception {
+        String endpoint = greeterEndPoint;
+        String[] urlTemplates = {
+                endpoint+"?name=Petike&title=student",
+                endpoint+"?name=2&title=3.2",
+        };
+        String[] results = {
+                "Oh, hi there Petike, my dear student!",
+                "Oh, hi there 2, my dear 3.2!",
+        };
+
+        for (int i = 0; i < urlTemplates.length; i++) {
+            mockMvc.perform(get(urlTemplates[i]))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(contentType))
+                    .andExpect(jsonPath("$.welcome_message", is(results[i])))
                     .andDo(print());
         }
     }
