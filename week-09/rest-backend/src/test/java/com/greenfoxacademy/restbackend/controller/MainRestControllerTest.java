@@ -1,5 +1,6 @@
 package com.greenfoxacademy.restbackend.controller;
 
+import com.greenfoxacademy.restbackend.model.dto.Result;
 import com.greenfoxacademy.restbackend.service.ArrayActionService;
 import com.greenfoxacademy.restbackend.service.DoUntilService;
 import com.greenfoxacademy.restbackend.service.LogService;
@@ -187,6 +188,33 @@ public class MainRestControllerTest {
                     .andExpect(status().isAccepted())
                     .andExpect(content().contentType(contentType))
                     .andExpect(jsonPath(jsonErrorPath, is(errorMsg)))
+                    .andDo(print());
+        }
+    }
+
+    @Test
+    public void arraysReturnsJson_on_supportedAction() throws Exception {
+        String endpoint = arraysEndPoint;
+        String jsonPath = "$.result";
+        String[] supportedActions = {
+                "sum",
+                "multiply",
+        };
+        int[] results = {
+                15,
+                100,
+        };
+
+        String jsonPost;
+        for (int i = 0; i < supportedActions.length; i++) {
+            when(arrayActionService.doArrayAction(eq(supportedActions[i]), anyList())).thenReturn(new Result(results[i]));
+            jsonPost = "{\"what\": \"" + supportedActions[i] + "\", \"numbers\": [1,2,5,10]}";
+            mockMvc.perform(post(endpoint)
+                    .contentType(contentType)
+                    .content(jsonPost))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(contentType))
+                    .andExpect(jsonPath(jsonPath, is(results[i])))
                     .andDo(print());
         }
     }
