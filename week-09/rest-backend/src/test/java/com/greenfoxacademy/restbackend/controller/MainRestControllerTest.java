@@ -3,6 +3,7 @@ package com.greenfoxacademy.restbackend.controller;
 import com.greenfoxacademy.restbackend.service.ArrayActionService;
 import com.greenfoxacademy.restbackend.service.DoUntilService;
 import com.greenfoxacademy.restbackend.service.LogService;
+import com.greenfoxacademy.restbackend.util.Interpolate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ public class MainRestControllerTest {
 
     private String doublingEndPoint ="/doubling";
     private String greeterEndPoint ="/greeter";
+    private String arraysEndPoint ="/arrays";
 
     @Autowired
     private MockMvc mockMvc;
@@ -136,6 +138,29 @@ public class MainRestControllerTest {
                     .andExpect(status().isOk())
                     .andExpect(content().contentType(contentType))
                     .andExpect(jsonPath("$.welcome_message", is(results[i])))
+                    .andDo(print());
+        }
+    }
+
+    @Test
+    public void arraysReturnsError_on_noParam() throws Exception {
+        String endpoint = arraysEndPoint;
+        String missingInputMsg = "Please provide what to do with the numbers!";
+
+        String[] jsonPosts = {
+                "",
+                "{}",
+                "{\"numbers\": [1,2,5,10]}",
+                "{\"what\": \"sum\"}",
+        };
+
+        for (String jsonPost : jsonPosts) {
+            mockMvc.perform(post(endpoint)
+                    .contentType(contentType)
+                    .content(jsonPost))
+                    .andExpect(status().isAccepted())
+                    .andExpect(content().contentType(contentType))
+                    .andExpect(jsonPath(jsonErrorPath, is(missingInputMsg)))
                     .andDo(print());
         }
     }
