@@ -3,12 +3,15 @@ package com.greenfoxacademy.restbackend.controller;
 import com.greenfoxacademy.restbackend.service.ArrayActionService;
 import com.greenfoxacademy.restbackend.service.DoUntilService;
 import com.greenfoxacademy.restbackend.service.LogService;
-import com.greenfoxacademy.restbackend.util.Interpolate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.when;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -161,6 +164,29 @@ public class MainRestControllerTest {
                     .andExpect(status().isAccepted())
                     .andExpect(content().contentType(contentType))
                     .andExpect(jsonPath(jsonErrorPath, is(missingInputMsg)))
+                    .andDo(print());
+        }
+    }
+
+    @Test
+    public void arraysReturnsError_on_unsupportedAction() throws Exception {
+        String endpoint = arraysEndPoint;
+        String unsupportedAction = "nowaythiswouldexist";
+        String errorMsg = "Unsupported action: " + unsupportedAction;
+
+        when(arrayActionService.doArrayAction(eq(unsupportedAction), anyList())).thenThrow(new IllegalArgumentException(errorMsg));
+
+        String[] jsonPosts = {
+                "{\"what\": \"" + unsupportedAction + "\", \"numbers\": [1,2,5,10]}",
+        };
+
+        for (String jsonPost : jsonPosts) {
+            mockMvc.perform(post(endpoint)
+                    .contentType(contentType)
+                    .content(jsonPost))
+                    .andExpect(status().isAccepted())
+                    .andExpect(content().contentType(contentType))
+                    .andExpect(jsonPath(jsonErrorPath, is(errorMsg)))
                     .andDo(print());
         }
     }
