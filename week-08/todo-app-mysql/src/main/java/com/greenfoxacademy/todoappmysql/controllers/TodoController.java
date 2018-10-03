@@ -2,7 +2,6 @@ package com.greenfoxacademy.todoappmysql.controllers;
 
 import com.greenfoxacademy.todoappmysql.models.Todo;
 import com.greenfoxacademy.todoappmysql.repositories.TodoRepository;
-import com.greenfoxacademy.todoappmysql.utils.LogFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +35,6 @@ public class TodoController {
     public String list(HttpServletRequest request,
                        @RequestParam(value = "isActive", required = false) Boolean isActive,
             Model model) {
-        log.info(LogFormat.fromRequest(request));
 
         if (isActive == null)
             model.addAttribute("todos", todoRepository.findAll());
@@ -51,7 +49,6 @@ public class TodoController {
     @PostMapping("/add")
     public String addTodo(HttpServletRequest request,
                           @ModelAttribute Todo newTodo) {
-        log.info(LogFormat.fromRequest(request, newTodo));
 
         todoRepository.save(newTodo);
         return "redirect:list";
