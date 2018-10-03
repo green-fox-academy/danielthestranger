@@ -4,14 +4,10 @@
     <th:block th:include="th-fragments :: head" />
 </head>
 <body>
-<div class="container" role="main">
-    <div class="row">
-        <div class="col-md-12">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
-                <p><a th:href="@{/assignee/}" class="navbar-brand">Manage Assignees</a></p>
-            </nav>
-        </div>
-    </div>
+<nav th:replace="th-fragments :: nav"></nav>
+
+<div class="container">
+
     <div class="page-header">
         <h1>Todos for today:</h1>
     </div>

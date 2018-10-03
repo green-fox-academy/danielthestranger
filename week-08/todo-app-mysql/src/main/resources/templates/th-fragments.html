@@ -11,6 +11,11 @@
 </head>
 <body>
 
+<nav th:fragment="nav" class="navbar navbar-expand-lg navbar-light bg-light rounded">
+    <a th:href="@{/todo/}" class="navbar-brand">Todos</a></li>
+    <a th:href="@{/assignee/}" class="navbar-brand">Manage Assignees</a></li>
+</nav>
+
 <script th:fragment="bootstrapjs" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>
