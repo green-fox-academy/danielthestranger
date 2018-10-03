@@ -18,7 +18,7 @@ import java.util.Optional;
 public class TodoController {
 
     public static final String CONTROLLER_ROOT = "/todo/";
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+//    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     TodoRepository todoRepository;
     AssigneeRepository assigneeRepository;

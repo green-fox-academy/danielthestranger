@@ -19,7 +19,7 @@ import java.util.Optional;
 public class AssigneeController {
 
     public static final String CONTROLLER_ROOT = "/assignee/";
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+//    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     AssigneeRepository assigneeRepository;
 
