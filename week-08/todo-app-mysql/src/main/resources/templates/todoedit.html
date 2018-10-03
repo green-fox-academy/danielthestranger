@@ -17,6 +17,7 @@
                     <th>Title</th>
                     <th>Done</th>
                     <th>Urgent</th>
+                    <th>Assignee</th>
                     <th>Command</th>
                     <th>Cancel</th>
                 </tr>
@@ -27,6 +28,13 @@
                         <td><input type="text" class="form-control form-control-sm" th:field="*{title}"/></td>
                         <td><input type="checkbox" class="form-check-input" th:field="*{done}"/></td>
                         <td><input type="checkbox" class="form-check-input" th:field="*{urgent}"/></td>
+                        <td>
+                            <select class="form-control form-control-sm" th:field="*{assignee}">
+                                <option value="" name=""></option>
+                                <option th:each="assignee : ${possibleAssignees}"
+                                        th:value="${assignee.id}" th:text="${assignee.name}"></option>
+                            </select>
+                        </td>
                         <td><input type="submit" th:value="Update" class="btn btn-sm btn-primary"/></td>
                         <td><a th:text="Cancel" th:href="@{/todo/}"></a></td>
                     </form>

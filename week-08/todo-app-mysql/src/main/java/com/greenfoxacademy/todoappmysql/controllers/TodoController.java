@@ -1,6 +1,7 @@
 package com.greenfoxacademy.todoappmysql.controllers;
 
 import com.greenfoxacademy.todoappmysql.models.Todo;
+import com.greenfoxacademy.todoappmysql.repositories.AssigneeRepository;
 import com.greenfoxacademy.todoappmysql.repositories.TodoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,10 +21,12 @@ public class TodoController {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     TodoRepository todoRepository;
+    AssigneeRepository assigneeRepository;
 
     @Autowired
-    public TodoController(TodoRepository todoRepository) {
+    public TodoController(TodoRepository todoRepository, AssigneeRepository assigneeRepository) {
         this.todoRepository = todoRepository;
+        this.assigneeRepository = assigneeRepository;
 
         // Dummy todos for testing
         todoRepository.save(new Todo("Not urgent done task", false, true));
@@ -71,6 +74,7 @@ public class TodoController {
             return "redirect:" + CONTROLLER_ROOT;
 
         model.addAttribute("todo", optionalTodo.get());
+        model.addAttribute("possibleAssignees", assigneeRepository.findAll());
         return "todoedit";
     }
 
