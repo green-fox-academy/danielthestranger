@@ -67,7 +67,13 @@
                         <td th:text="*{title}"></td>
                         <td><input type="checkbox" class="form-check-input" th:checked="*{done}" disabled /></td>
                         <td><input type="checkbox" class="form-check-input" th:checked="*{urgent}" disabled /></td>
-                        <td th:text="${todo.assignee} != null ? ${todo.assignee.name} : ''"></td>
+                        <td>
+                            <a th:if="${todo.assignee} != null"
+                               th:href="@{/todo/(assigneeId=${todo.assignee.id})}"
+                               th:alt-title="${todo.assignee.name}"
+                               th:text="${todo.assignee.name}">
+                            </a>
+                        </td>
                         <td><a th:text="Edit" th:href="@{{id}/edit(id=*{id})}"></a></td>
                         <td><input type="submit" th:value="Delete" class="btn btn-sm btn-danger"/></td>
                     </form>

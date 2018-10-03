@@ -35,7 +35,7 @@
                 <tr th:each="assignee : ${assignees}">
                     <form th:object="${assignee}" action="#" th:action="@{{id}/delete(id=*{id})}" method="post">
                         <td th:text="*{id}"></td>
-                        <td th:text="*{name}"></td>
+                        <td><a th:href="@{/todo/(assigneeId=*{id})}" th:alt-title="*{name}" th:text="*{name}"></a></td>
                         <td th:text="*{email}"></td>
                         <td><a th:text="Edit" th:href="@{{id}/edit(id=*{id})}"></a></td>
                         <td><input type="submit" th:value="Delete" class="btn btn-sm btn-danger"/></td>
