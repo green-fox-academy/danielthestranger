@@ -15,7 +15,7 @@ public class Todo {
     private String title;
     private Boolean urgent;
     private Boolean done;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Assignee assignee;
 
 

@@ -18,6 +18,7 @@
                     <th>Search Title</th>
                     <th>Search Done</th>
                     <th>Search Urgent</th>
+                    <th>Search Assignee</th>
                     <th>Command</th>
                 </tr>
                 </thead>
@@ -26,6 +27,7 @@
                     <form action="#" th:action="@{'/todo/'}" method="get">
                         <td></td>
                         <td><input type="text" class="form-control form-control-sm" name="title"/></td>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td><input type="submit" th:value="Search" class="btn btn-sm btn-primary"/></td>
@@ -42,6 +44,7 @@
                     <th>Title</th>
                     <th>Done</th>
                     <th>Urgent</th>
+                    <th>Assignee</th>
                     <th>Edit</th>
                     <th>Command</th>
                 </tr>
@@ -54,6 +57,7 @@
                         <td><input type="checkbox" class="form-check-input" th:field="*{done}"/></td>
                         <td><input type="checkbox" class="form-check-input" th:field="*{urgent}"/></td>
                         <td></td>
+                        <td></td>
                         <td><input type="submit" th:value="Add" class="btn btn-sm btn-success"/></td>
                     </form>
                 </tr>
@@ -63,6 +67,7 @@
                         <td th:text="*{title}"></td>
                         <td><input type="checkbox" class="form-check-input" th:checked="*{done}" disabled /></td>
                         <td><input type="checkbox" class="form-check-input" th:checked="*{urgent}" disabled /></td>
+                        <td th:text="${todo.assignee} != null ? ${todo.assignee.name} : ''"></td>
                         <td><a th:text="Edit" th:href="@{{id}/edit(id=*{id})}"></a></td>
                         <td><input type="submit" th:value="Delete" class="btn btn-sm btn-danger"/></td>
                     </form>
