@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TodoRepository extends CrudRepository<Todo, Long> {
 
-    public Iterable<Todo> findAllByDone(Boolean done);
+    Iterable<Todo> findAllByTitleContainingAndDone(String title, Boolean done);
+    Iterable<Todo> findAllByTitleContaining(String title);
 }

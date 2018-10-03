@@ -33,13 +33,15 @@ public class TodoController {
 
     @GetMapping(value = {"/", "/list"})
     public String list(HttpServletRequest request,
-                       @RequestParam(value = "isActive", required = false) Boolean isActive,
-            Model model) {
+                       @RequestParam(value = "done", required = false) Boolean done,
+                       @RequestParam(value = "title", defaultValue = "") String title,
+                       Model model) {
 
-        if (isActive == null)
-            model.addAttribute("todos", todoRepository.findAll());
-        else
-            model.addAttribute("todos", todoRepository.findAllByDone(!isActive));
+        if (done != null) {
+            model.addAttribute("todos", todoRepository.findAllByTitleContainingAndDone(title, done));
+        } else {
+            model.addAttribute("todos", todoRepository.findAllByTitleContaining(title));
+        }
 
         model.addAttribute("newTodo", new Todo());
 

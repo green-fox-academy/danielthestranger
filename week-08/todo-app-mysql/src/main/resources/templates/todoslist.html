@@ -13,6 +13,30 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
+                    <th>Search ID</th>
+                    <th>Search Title</th>
+                    <th>Search Done</th>
+                    <th>Search Urgent</th>
+                    <th>Command</th>
+                </tr>
+                <tbody>
+                </tbody>
+                <tr>
+                    <form action="#" th:action="@{'/todo/'}" method="get">
+                        <td></td>
+                        <td><input type="text" class="form-control form-control-sm" name="title"/></td>
+                        <td></td>
+                        <td></td>
+                        <td><input type="submit" th:value="Search" class="btn btn-sm btn-primary"/></td>
+                    </form>
+                </tr>
+                </tbody>
+            </table>
+
+
+            <table class="table table-striped">
+                <thead>
+                <tr>
                     <th>ID</th>
                     <th>Title</th>
                     <th>Done</th>
@@ -29,7 +53,7 @@
                         <td><input type="checkbox" class="form-check-input" th:field="*{done}"/></td>
                         <td><input type="checkbox" class="form-check-input" th:field="*{urgent}"/></td>
                         <td></td>
-                        <td><input type="submit" th:value="Add" class="btn btn-sm btn-primary"/></td>
+                        <td><input type="submit" th:value="Add" class="btn btn-sm btn-success"/></td>
                     </form>
                 </tr>
                 <tr th:each="todo : ${todos}">
