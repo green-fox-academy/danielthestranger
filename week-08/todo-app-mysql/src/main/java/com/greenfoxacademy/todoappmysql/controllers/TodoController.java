@@ -2,6 +2,8 @@ package com.greenfoxacademy.todoappmysql.controllers;
 
 import com.greenfoxacademy.todoappmysql.models.Todo;
 import com.greenfoxacademy.todoappmysql.repositories.TodoRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,8 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/todo")
 public class TodoController {
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     TodoRepository todoRepository;
 
@@ -29,6 +33,12 @@ public class TodoController {
     @GetMapping(value = {"/", "/list"})
     public String list(@RequestParam(value = "isActive", required = false) Boolean isActive,
             Model model) {
+        logger.trace("A TRACE Message");
+        logger.debug("A DEBUG Message");
+        logger.info("An INFO Message");
+        logger.warn("A WARN Message");
+        logger.error("An ERROR Message");
+
         if (isActive == null)
             model.addAttribute("todos", todoRepository.findAll());
         else
