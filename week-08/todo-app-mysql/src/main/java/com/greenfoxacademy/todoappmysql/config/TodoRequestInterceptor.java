@@ -3,7 +3,7 @@ package com.greenfoxacademy.todoappmysql.config;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.greenfoxacademy.todoappmysql.utils.LogFormat;
+import com.greenfoxacademy.todoappmysql.utils.RequestLogFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -25,7 +25,7 @@ public class TodoRequestInterceptor extends HandlerInterceptorAdapter {
         } catch (Exception exception) {
             exception.printStackTrace();
         } finally {
-            log.info(LogFormat.fromRequest(request));
+            log.info(RequestLogFormat.fromRequest(request));
         }
         return true;
     }

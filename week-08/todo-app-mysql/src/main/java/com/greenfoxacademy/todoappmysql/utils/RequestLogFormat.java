@@ -9,7 +9,7 @@ import java.text.MessageFormat;
 import java.util.Map;
 import java.util.Objects;
 
-public class LogFormat {
+public class RequestLogFormat {
     private static final String requestMarker = "Request";
     private static final String requestDataFallback = "Cannot get request body";
     private static final ObjectMapper jacksonMapper = new ObjectMapper();
