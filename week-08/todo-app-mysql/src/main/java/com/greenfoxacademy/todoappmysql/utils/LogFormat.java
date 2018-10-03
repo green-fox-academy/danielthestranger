@@ -19,7 +19,7 @@ public class LogFormat {
         return fromRequest(request, null);
     }
 
-    public static String fromRequest(HttpServletRequest request, Object postedObject) {
+    public static String fromRequest(HttpServletRequest request, Object fallbackPostedObject) {
         ContentCachingRequestWrapper cachedRequest = new ContentCachingRequestWrapper(request);
         cachedRequest.getParameterMap();
 
@@ -38,9 +38,9 @@ public class LogFormat {
                 requestData = "";
             }
 
-            if (requestData.isEmpty() && postedObject != null) {
+            if (requestData.isEmpty() && fallbackPostedObject != null) {
                 String contentType = cachedRequest.getHeader("Content-Type");
-                requestData = getDataStringFromObject(contentType, postedObject);
+                requestData = getDataStringFromObject(contentType, fallbackPostedObject);
             }
         }
 
