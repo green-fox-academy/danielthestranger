@@ -5,8 +5,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class RootController {
-    @GetMapping(value = "/")
+    @GetMapping(value = {"/", "/todo"})
     public String redirectToTodo() {
-        return "redirect:/todo/";
+        return "redirect:" + TodoController.CONTROLLER_ROOT;
+    }
+
+    @GetMapping(value = "/assignee")
+    public String redirectToAssignee() {
+        return "redirect:" + AssigneeController.CONTROLLER_ROOT;
     }
 }

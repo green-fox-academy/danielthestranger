@@ -5,12 +5,19 @@
 </head>
 <body>
 <div class="container" role="main">
+    <div class="row">
+        <div class="col-md-12">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
+                <p><a th:href="@{/assignee/}" class="navbar-brand">Manage Assignees</a></p>
+            </nav>
+        </div>
+    </div>
     <div class="page-header">
         <h1>Todos for today:</h1>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-striped">
+            <table class="table table-sm">
                 <thead>
                 <tr>
                     <th>Search ID</th>
@@ -19,9 +26,9 @@
                     <th>Search Urgent</th>
                     <th>Command</th>
                 </tr>
+                </thead>
                 <tbody>
-                </tbody>
-                <tr>
+                <tr class="table-info">
                     <form action="#" th:action="@{'/todo/'}" method="get">
                         <td></td>
                         <td><input type="text" class="form-control form-control-sm" name="title"/></td>
@@ -47,7 +54,7 @@
                 <tbody>
                 </tbody>
                 <tr>
-                    <form th:object="${newTodo}" action="#" th:action="@{'add'}" method="post">
+                    <form th:object="${newTodo}" action="#" th:action="@{add}" method="post">
                         <td></td>
                         <td><input type="text" class="form-control form-control-sm" th:field="*{title}"/></td>
                         <td><input type="checkbox" class="form-check-input" th:field="*{done}"/></td>
@@ -71,5 +78,6 @@
         </div>
     </div>
 </div>
+<script th:replace="th-fragments :: bootstrapjs"></script>
 </body>
 </html>

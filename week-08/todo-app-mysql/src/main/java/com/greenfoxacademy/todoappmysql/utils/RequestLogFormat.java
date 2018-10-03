@@ -28,12 +28,12 @@ public class RequestLogFormat {
 
         String msg = MessageFormat.format("{0} {1} {2} ",  requestMarker, endpoint, requestMethod);
 
-        String requestData = null;
+        String requestData = "";
         if ("get".equalsIgnoreCase(requestMethod)) {
             requestData = Objects.toString(cachedRequest.getQueryString(), "");
         } else if ("post".equalsIgnoreCase(requestMethod)) {
             try {
-                requestData = readPayload(cachedRequest);
+                requestData = Objects.toString(readPayload(cachedRequest),"");
             } catch (IOException e) {
                 requestData = "";
             }

@@ -13,9 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/todo")
+@RequestMapping(TodoController.CONTROLLER_ROOT)
 public class TodoController {
 
+    public static final String CONTROLLER_ROOT = "/todo/";
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     TodoRepository todoRepository;
@@ -45,37 +46,37 @@ public class TodoController {
 
         model.addAttribute("newTodo", new Todo());
 
-        return "todoslist";
+        return "todos";
     }
 
     @PostMapping("/add")
-    public String addTodo(HttpServletRequest request,
+    public String add(HttpServletRequest request,
                           @ModelAttribute Todo newTodo) {
 
         todoRepository.save(newTodo);
-        return "redirect:list";
+        return "redirect:" + CONTROLLER_ROOT;
     }
 
-    @PostMapping("{id}/delete")
-    public String deleteTodo(@PathVariable(value = "id") Long id) {
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable(value = "id") Long id) {
         todoRepository.deleteById(id);
-        return "redirect:/todo/";
+        return "redirect:" + CONTROLLER_ROOT;
     }
 
-    @GetMapping("{id}/edit")
-    public String showEditTodo(@PathVariable(value = "id") Long id,
+    @GetMapping("/{id}/edit")
+    public String showEdit(@PathVariable(value = "id") Long id,
                            Model model) {
         Optional<Todo> optionalTodo = todoRepository.findById(id);
         if (optionalTodo.equals(Optional.empty()))
-            return "redirect:/todo/";
+            return "redirect:" + CONTROLLER_ROOT;
 
         model.addAttribute("todo", optionalTodo.get());
         return "todoedit";
     }
 
-    @PostMapping("{id}/edit")
-    public String editTodo(@ModelAttribute Todo todo) {
+    @PostMapping("/{id}/edit")
+    public String update(@ModelAttribute Todo todo) {
         todoRepository.save(todo);
-        return "redirect:/todo/";
+        return "redirect:" + CONTROLLER_ROOT;
     }
 }

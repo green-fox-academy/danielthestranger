@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="th-fragments :: head" />
+</head>
+<body>
+<div class="container" role="main">
+    <div class="page-header">
+        <h1>Edit Assignee</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>E-mail</th>
+                    <th>Command</th>
+                    <th>Cancel</th>
+                </tr>
+                <tbody>
+                </tbody>
+                <tr>
+                    <form th:object="${assignee}" method="post">
+                        <td><input type="text" class="form-control form-control-sm" th:field="*{name}"/></td>
+                        <td><input type="text" class="form-control form-control-sm" th:field="*{email}"/></td>
+                        <td><input type="submit" th:value="Update" class="btn btn-sm btn-primary"/></td>
+                        <td><a th:text="Cancel" th:href="@{/assignee/}"></a></td>
+                    </form>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

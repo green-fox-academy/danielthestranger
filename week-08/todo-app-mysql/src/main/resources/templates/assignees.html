@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="th-fragments :: head" />
+</head>
+<body>
+<div class="container" role="main">
+    <div class="page-header">
+        <h1>Assignees:</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>E-mail</th>
+                    <th>Edit</th>
+                    <th>Command</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <form th:object="${newAssignee}" action="#" th:action="@{add}" method="post">
+                        <td></td>
+                        <td><input type="text" class="form-control form-control-sm" th:field="*{name}"/></td>
+                        <td><input type="text" class="form-control form-control-sm" th:field="*{email}"/></td>
+                        <td></td>
+                        <td><input type="submit" th:value="Add" class="btn btn-sm btn-success"/></td>
+                    </form>
+                </tr>
+                <tr th:each="assignee : ${assignees}">
+                    <form th:object="${assignee}" action="#" th:action="@{{id}/delete(id=*{id})}" method="post">
+                        <td th:text="*{id}"></td>
+                        <td th:text="*{name}"></td>
+                        <td th:text="*{email}"></td>
+                        <td><a th:text="Edit" th:href="@{{id}/edit(id=*{id})}"></a></td>
+                        <td><input type="submit" th:value="Delete" class="btn btn-sm btn-danger"/></td>
+                    </form>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script th:include="th-fragments :: bootstrapjs"></script>
+</body>
+</html>
