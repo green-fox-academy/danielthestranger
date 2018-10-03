@@ -9,4 +9,5 @@ public interface TodoRepository extends CrudRepository<Todo, Long> {
 
     Iterable<Todo> findAllByTitleContainingAndDone(String title, Boolean done);
     Iterable<Todo> findAllByTitleContaining(String title);
+    Iterable<Todo> findAllByAssignee_Id(Long assigneeId);
 }

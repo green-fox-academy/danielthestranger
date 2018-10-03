@@ -39,16 +39,22 @@ public class TodoController {
     public String list(HttpServletRequest request,
                        @RequestParam(value = "done", required = false) Boolean done,
                        @RequestParam(value = "title", defaultValue = "") String title,
+                       @RequestParam(value = "assigneeId", required = false) Long assigneeId,
                        Model model) {
-
-        if (done != null) {
-            model.addAttribute("todos", todoRepository.findAllByTitleContainingAndDone(title, done));
-        } else {
-            model.addAttribute("todos", todoRepository.findAllByTitleContaining(title));
-        }
 
         model.addAttribute("newTodo", new Todo());
 
+        String todosAttribute = "todos";
+        if (assigneeId != null) {
+            model.addAttribute(todosAttribute, todoRepository.findAllByAssignee_Id(assigneeId));
+            return "todos";
+        }
+
+        if (done != null) {
+            model.addAttribute(todosAttribute, todoRepository.findAllByTitleContainingAndDone(title, done));
+        } else {
+            model.addAttribute(todosAttribute, todoRepository.findAllByTitleContaining(title));
+        }
         return "todos";
     }
 
