@@ -43,8 +43,8 @@ public class TodoController {
                        Model model) {
 
         model.addAttribute("newTodo", new Todo());
-
         String todosAttribute = "todos";
+
         if (assigneeId != null) {
             model.addAttribute(todosAttribute, todoRepository.findAllByAssignee_Id(assigneeId));
             return "todos";
