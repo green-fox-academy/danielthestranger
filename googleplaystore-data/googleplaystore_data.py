@@ -8,13 +8,13 @@ REVIEWS_COL = 'Reviews'
 
 def read_apps(filename):
     def remove_duplicate_rows(dataframe):
-        # Apps are repeated for no obvious reason.
-        # The review count looks cumulative, so we keep only the records with
-        # the highest review count per app.
+        """Apps are repeated for no obvious reason.
+        The review count looks cumulative, so we keep only the records with
+        the highest review count per app.
+        """
         indexes_to_keep =\
             dataframe.groupby(by=APP_COL, as_index=False)[REVIEWS_COL].idxmax()
         unique_apps = dataframe.reindex(indexes_to_keep, copy=True)
-        #unique_apps.set_index(APP_COL, inplace=True)
         return unique_apps
 
     read_data = pd.read_csv(filename)
@@ -51,19 +51,21 @@ def print_series_keys_and_values(series):
         print()
     return
 
-########### Main proc ###############
+
+########### Exercises ###############
 
 # Manually edited source CSV as it was malformed:
 # App 'Life Made WI-Fi Touchscreen Photo Frame' didn't have a Category col.
 APPS = read_apps("googleplaystore.csv")
 
 
-
 print("*** Exercise 1 ***")
 print("Which app has the lowest number of reviews?")
 print("Listed by review count:\n")
 
-
 review_counts = get_apps_by_review_count(APPS)
 least_reviews = get_top_from_series(review_counts)
 print_series_keys_and_values(least_reviews)
+
+
+# Cannot continue, got reassigned to another project
