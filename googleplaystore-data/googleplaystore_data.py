@@ -3,7 +3,7 @@ import pandas as pd
 def read_apps(filename):
     def remove_duplicate_rows(dataframe):
         """Apps are repeated for no obvious reason.
-        The review count looks cumulative, so we keep only the records with
+        The review count looks cumulative, so we keep only one record with
         the highest review count per app.
         """
         indexes_to_keep =\
