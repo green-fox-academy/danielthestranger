@@ -1,11 +1,5 @@
 import pandas as pd
 
-pd.set_option('display.width', 1000)
-pd.set_option('display.max_columns', 15)
-
-APP_COL = 'App'
-REVIEWS_COL = 'Reviews'
-
 def read_apps(filename):
     def remove_duplicate_rows(dataframe):
         """Apps are repeated for no obvious reason.
@@ -54,9 +48,15 @@ def print_series_keys_and_values(series):
 
 ########### Exercises ###############
 
+APP_COL = 'App'
+REVIEWS_COL = 'Reviews'
+
 # Manually edited source CSV as it was malformed:
 # App 'Life Made WI-Fi Touchscreen Photo Frame' didn't have a Category col.
 APPS = read_apps("googleplaystore.csv")
+
+pd.set_option('display.width', 1000)
+pd.set_option('display.max_columns', 15)
 
 
 print("*** Exercise 1 ***")
@@ -66,6 +66,5 @@ print("Listed by review count:\n")
 review_counts = get_apps_by_review_count(APPS)
 least_reviews = get_top_from_series(review_counts)
 print_series_keys_and_values(least_reviews)
-
 
 # Cannot continue, got reassigned to another project
