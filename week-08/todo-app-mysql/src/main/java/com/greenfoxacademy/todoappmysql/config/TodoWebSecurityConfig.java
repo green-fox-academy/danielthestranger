@@ -51,6 +51,8 @@ public class TodoWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/todo/")
+            .and()
+                .logout()
         ;
     }
 }
