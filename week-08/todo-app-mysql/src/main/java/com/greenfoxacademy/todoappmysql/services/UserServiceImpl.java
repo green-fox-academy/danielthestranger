@@ -14,6 +14,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private AuthorityRepository authorityRepository;
     private PasswordEncoder passwordEncoder;
+    private static final Authority defaultAuthority = new Authority("ROLE_USER");
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
@@ -26,20 +27,18 @@ public class UserServiceImpl implements UserService {
         createDefaultUsers();
     }
 
-    private void createDefaultUsers() {
-        Authority auth = createDefaultAuthority("ROLE_USER");
+    public static Authority getDefaultAuthority() {
+        return defaultAuthority;
+    }
 
+
+    private void createDefaultUsers() {
         User u1 = new User();
         u1.setUsername("dani");
         u1.setPassword(passwordEncoder.encode("test"));
         u1.setEnabled(true);
-        u1.addAuthority(auth);
+        u1.addAuthority(getDefaultAuthority());
 
         userRepository.save(u1);
-    }
-
-    private Authority createDefaultAuthority(String authorityDesc) {
-        Authority a1 = new Authority(authorityDesc);
-        return authorityRepository.save(a1);
     }
 }
