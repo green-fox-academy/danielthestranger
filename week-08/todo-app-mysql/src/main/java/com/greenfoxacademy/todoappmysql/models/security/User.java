@@ -1,6 +1,7 @@
 package com.greenfoxacademy.todoappmysql.models.security;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -17,6 +18,18 @@ public class User {
             inverseJoinColumns = { @JoinColumn(name = "authority") }
     )
     private Set<Authority> authorities;
+
+
+    public User() {
+        this.authorities = new HashSet<>();
+    }
+
+    public User(String username, String password, Boolean enabled) {
+        this();
+        this.username = username;
+        this.password = password;
+        this.enabled = enabled;
+    }
 
     public String getUsername() {
         return username;
@@ -48,5 +61,9 @@ public class User {
 
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
+    }
+
+    public void addAuthority(Authority authority) {
+        this.authorities.add(authority);
     }
 }

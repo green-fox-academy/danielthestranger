@@ -3,8 +3,6 @@ package com.greenfoxacademy.todoappmysql.controllers;
 import com.greenfoxacademy.todoappmysql.models.Todo;
 import com.greenfoxacademy.todoappmysql.repositories.AssigneeRepository;
 import com.greenfoxacademy.todoappmysql.repositories.TodoRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
