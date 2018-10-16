@@ -38,6 +38,7 @@ public class UserServiceImpl implements UserService {
         u1.setPassword(passwordEncoder.encode("test"));
         u1.setEnabled(true);
         u1.addAuthority(getDefaultAuthority());
+        u1.addAuthority(new Authority("ROLE_ADMIN"));
 
         userRepository.save(u1);
     }
